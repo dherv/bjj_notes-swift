@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct FormInput {
+struct FormInput: Codable {
     var name: String
     var value: String
     init(name: String, value: String) {
@@ -17,14 +17,49 @@ struct FormInput {
     }
 }
 
+struct TextFieldPoint: Codable {
+    var number: Int
+    var content: String
+    init(number: Int, content: String) {
+        self.content = content
+        self.number = number
+    }
+}
+
+struct PostData: Codable {
+    
+    var title: String
+    var teacher: String
+    var category: String
+    var sub_category: String
+    var comment: String
+    var items: [TextFieldPoint]
+    
+    init(   title: String,
+            teacher: String,
+            category: String,
+            sub_category: String,
+            comment: String,
+            items: [TextFieldPoint]) {
+        self.title = title
+        self.teacher = teacher
+        self.category = category
+        self.sub_category = sub_category
+        self.comment = comment
+        self.items = items
+    }
+}
+
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    var list = [String]()
+    var list = [TextFieldPoint]()
     var form_input = [FormInput]()
+    var data = [Data]()
+    
     
     
     @IBOutlet weak var textFieldTeacher: UITextField!
-   
+    
     @IBOutlet weak var textFieldCategory: UITextField!
     @IBOutlet weak var textFieldSub: UITextField!
     @IBOutlet weak var textFieldTitle: UITextField!
@@ -48,7 +83,39 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func submit(_ sender: Any) {
-//        Api.post
+        self.insertData()
+    }
+    
+    private func getData() {
+        Api.shared.get(path: "/notes") {(res) in
+            switch res {
+            case.failure(let err):
+                print(err)
+            case .success(let data):
+                self.data = [data]
+            }
+        }
+    }
+    
+    private func insertData() {
+        
+        let title = form_input.first(where: { $0.name  == "title" })!.value
+        let teacher = form_input.first(where: { $0.name  == "teacher" })!.value
+        let category = form_input.first(where: { $0.name  == "category" })!.value
+        let sub_category = form_input.first(where: { $0.name  == "sub_category" })!.value
+        let comment = form_input.first(where: { $0.name  == "comment" })!.value
+        
+        let post_data = PostData(title: title, teacher: teacher, category: category, sub_category: sub_category, comment: comment, items: list)
+        
+        Api.shared.post(path: "/notes", post_data: post_data) {(res) in
+            switch res {
+            case.failure(let err):
+                print(err)
+            case .success(let data):
+                print(data)
+            }
+            
+        }
     }
     
     private func generateFormInput() {
@@ -70,10 +137,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print(textField.tag)
         // tag == 0 is textFieldPoint
         if textField.tag == 0 {
-            list.append(textField.text!)
+            list.append(TextFieldPoint(number: list.count, content: textField.text!))
             
             let map_list = list.enumerated().map {
-                return "\($0.0 + 1)- \($0.1) \n"
+                return "\($0.0 + 1)- \($0.1.content) \n"
             }
             // create new input OR clear input and add first one as text
             textarea.text = map_list.joined(separator: "\n")

@@ -14,6 +14,7 @@
 		6D04D48C2324C2A700667D63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D04D48A2324C2A700667D63 /* LaunchScreen.storyboard */; };
 		6D04D4972324C2A700667D63 /* bjj_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04D4962324C2A700667D63 /* bjj_iosTests.swift */; };
 		6D04D4A22324C2A700667D63 /* bjj_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04D4A12324C2A700667D63 /* bjj_iosUITests.swift */; };
+		6D04D4B02324EF7F00667D63 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04D4AF2324EF7F00667D63 /* Api.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		6D04D49D2324C2A700667D63 /* bjj_iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bjj_iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D04D4A12324C2A700667D63 /* bjj_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bjj_iosUITests.swift; sourceTree = "<group>"; };
 		6D04D4A32324C2A700667D63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D04D4AF2324EF7F00667D63 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		6D04D4802324C2A600667D63 /* bjj_ios */ = {
 			isa = PBXGroup;
 			children = (
+				6D04D4AF2324EF7F00667D63 /* Api.swift */,
 				6D04D4812324C2A600667D63 /* AppDelegate.swift */,
 				6D04D4832324C2A600667D63 /* ViewController.swift */,
 				6D04D4852324C2A600667D63 /* Main.storyboard */,
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D04D4B02324EF7F00667D63 /* Api.swift in Sources */,
 				6D04D4842324C2A600667D63 /* ViewController.swift in Sources */,
 				6D04D4822324C2A600667D63 /* AppDelegate.swift in Sources */,
 			);
