@@ -9,6 +9,35 @@
 import Foundation
 
 
+struct GetData: Decodable {
+    var id: Int
+        var title: String
+        var teacher: String
+        var category: String
+        var sub_category: String
+        var comment: String
+    var created_at: String
+        
+        init(
+            id: Int,
+            title: String,
+                teacher: String,
+                category: String,
+                sub_category: String,
+                comment: String,
+                created_at: String
+              ) {
+            self.id = id
+            self.title = title
+            self.teacher = teacher
+            self.category = category
+            self.sub_category = sub_category
+            self.comment = comment
+            self.created_at = created_at
+        }
+    
+}
+
 class Api {
     static let shared = Api(baseUrl: String("http://localhost:3000"))
     
@@ -18,7 +47,7 @@ class Api {
         self.baseUrl = baseUrl
     }
     
-    func get(path: String, completion: @escaping (Result<Data, Error>) -> ()) {
+    func get(path: String, completion: @escaping (Result<[GetData], Error>) -> ()) {
         guard let endpoint = URL(string: (baseUrl + path) ) else {return}
         
         let task = URLSession.shared.dataTask(with: endpoint) { data, response, error in
@@ -30,7 +59,8 @@ class Api {
             guard let data = data else { return }
             
             do {
-                let data = try JSONDecoder().decode(Data.self, from : data)
+                // top level array need [GetData] instead of GetData
+                let data = try JSONDecoder().decode([GetData].self, from : data)
                 completion(.success(data))
             } catch {
                 completion(.failure(error))

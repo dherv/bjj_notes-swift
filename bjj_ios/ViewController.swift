@@ -86,16 +86,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.insertData()
     }
     
-    private func getData() {
-        Api.shared.get(path: "/notes") {(res) in
-            switch res {
-            case.failure(let err):
-                print(err)
-            case .success(let data):
-                self.data = [data]
-            }
-        }
-    }
+//    private func getData() {
+//        Api.shared.get(path: "/notes") {(res) in
+//            switch res {
+//            case.failure(let err):
+//                print(err)
+//            case .success(let data):
+//                self.data = [data]
+//            }
+//        }
+//    }
     
     private func insertData() {
         
