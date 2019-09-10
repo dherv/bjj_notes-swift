@@ -16,6 +16,8 @@
 		6D04D4A22324C2A700667D63 /* bjj_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04D4A12324C2A700667D63 /* bjj_iosUITests.swift */; };
 		6D04D4B02324EF7F00667D63 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04D4AF2324EF7F00667D63 /* Api.swift */; };
 		6D04D4B223252A0300667D63 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04D4B123252A0300667D63 /* RootViewController.swift */; };
+		6D931A422327CA51003FCAA8 /* NoteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D931A412327CA51003FCAA8 /* NoteListTableViewCell.swift */; };
+		6D931A442327CBCF003FCAA8 /* NoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D931A432327CBCF003FCAA8 /* NoteListTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		6D04D4A32324C2A700667D63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6D04D4AF2324EF7F00667D63 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		6D04D4B123252A0300667D63 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		6D931A412327CA51003FCAA8 /* NoteListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListTableViewCell.swift; sourceTree = "<group>"; };
+		6D931A432327CBCF003FCAA8 /* NoteListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 				6D04D4952324C2A700667D63 /* bjj_iosTests */,
 				6D04D4A02324C2A700667D63 /* bjj_iosUITests */,
 				6D04D47F2324C2A600667D63 /* Products */,
+				6D04D4EB2325CB7700667D63 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,7 +110,9 @@
 				6D04D4812324C2A600667D63 /* AppDelegate.swift */,
 				6D04D4832324C2A600667D63 /* ViewController.swift */,
 				6D04D4852324C2A600667D63 /* Main.storyboard */,
+				6D931A412327CA51003FCAA8 /* NoteListTableViewCell.swift */,
 				6D04D4B123252A0300667D63 /* RootViewController.swift */,
+				6D931A432327CBCF003FCAA8 /* NoteListTableViewController.swift */,
 				6D04D4882324C2A700667D63 /* Assets.xcassets */,
 				6D04D48A2324C2A700667D63 /* LaunchScreen.storyboard */,
 				6D04D48D2324C2A700667D63 /* Info.plist */,
@@ -129,6 +136,13 @@
 				6D04D4A32324C2A700667D63 /* Info.plist */,
 			);
 			path = bjj_iosUITests;
+			sourceTree = "<group>";
+		};
+		6D04D4EB2325CB7700667D63 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +213,11 @@
 				TargetAttributes = {
 					6D04D47D2324C2A600667D63 = {
 						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					6D04D4912324C2A700667D63 = {
 						CreatedOnToolsVersion = 10.3;
@@ -265,6 +284,8 @@
 				6D04D4B02324EF7F00667D63 /* Api.swift in Sources */,
 				6D04D4842324C2A600667D63 /* ViewController.swift in Sources */,
 				6D04D4B223252A0300667D63 /* RootViewController.swift in Sources */,
+				6D931A442327CBCF003FCAA8 /* NoteListTableViewController.swift in Sources */,
+				6D931A422327CA51003FCAA8 /* NoteListTableViewCell.swift in Sources */,
 				6D04D4822324C2A600667D63 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,7 +462,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TAAS2P43F;
 				INFOPLIST_FILE = bjj_ios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -449,7 +472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bjj-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -458,7 +481,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TAAS2P43F;
 				INFOPLIST_FILE = bjj_ios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -466,7 +491,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bjj-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

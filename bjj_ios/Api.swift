@@ -11,35 +11,35 @@ import Foundation
 
 struct GetData: Decodable {
     var id: Int
-        var title: String
-        var teacher: String
-        var category: String
-        var sub_category: String
-        var comment: String
+    var title: String
+    var teacher: String
+    var category: String
+    var sub_category: String
+    var comment: String
     var created_at: String
-        
-        init(
-            id: Int,
-            title: String,
-                teacher: String,
-                category: String,
-                sub_category: String,
-                comment: String,
-                created_at: String
-              ) {
-            self.id = id
-            self.title = title
-            self.teacher = teacher
-            self.category = category
-            self.sub_category = sub_category
-            self.comment = comment
-            self.created_at = created_at
-        }
+    
+    init(
+        id: Int,
+        title: String,
+        teacher: String,
+        category: String,
+        sub_category: String,
+        comment: String,
+        created_at: String
+        ) {
+        self.id = id
+        self.title = title
+        self.teacher = teacher
+        self.category = category
+        self.sub_category = sub_category
+        self.comment = comment
+        self.created_at = created_at
+    }
     
 }
 
 class Api {
-    static let shared = Api(baseUrl: String("http://localhost:3000"))
+    static let shared = Api(baseUrl: String("http://192.168.3.9:3000"))
     
     var baseUrl: String
     

@@ -26,7 +26,7 @@ class RootViewController: UIViewController {
                 print(err)
             case .success(let data):
                 print(data)
-//                self.notes = data
+                self.notes = data
             }
         }
     }
