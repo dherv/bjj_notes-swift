@@ -49,12 +49,12 @@ class NoteListTableViewController: UITableViewController {
         }
         
         let current_note = notes[indexPath.row]
-        print( current_note)
+        print("note", current_note)
         cell.noteTeachLabel.text
-            = current_note.teacher
-        cell.noteDateLabel.text = current_note.created_at
-        cell.noteTitleLabel.text = current_note.title
-        cell.noteCategoryLabel.text = current_note.category
+            = current_note.teacher_name
+        cell.noteDateLabel.text = current_note.class_date
+//        cell.noteTitleLabel.text = current_note.title
+        cell.noteCategoryLabel.text = String(current_note.position_id)
         return cell
     }
     
@@ -111,9 +111,9 @@ class NoteListTableViewController: UITableViewController {
         Api.shared.get(path: "/notes") {(res) in
             switch res {
             case .failure(let err):
-                print(err)
+                print("err", err)
             case .success(let data):
-                
+                print("data", data)
                 self.notes = data
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
