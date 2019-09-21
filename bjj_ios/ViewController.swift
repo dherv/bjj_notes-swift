@@ -44,7 +44,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var textFieldComment: UITextField!
     @IBOutlet weak var textFieldPoint: UITextField!
     
-    @IBOutlet weak var textarea: UITextView!
+    @IBOutlet weak var stackPoint: UIStackView!
+    
+    @IBOutlet weak var pointNumber: UILabel!
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,15 +72,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true, completion: nil)
     }
     //    private func getData() {
-//        Api.shared.get(path: "/notes") {(res) in
-//            switch res {
-//            case.failure(let err):
-//                print(err)
-//            case .success(let data):
-//                self.data = [data]
-//            }
-//        }
-//    }
+    //        Api.shared.get(path: "/notes") {(res) in
+    //            switch res {
+    //            case.failure(let err):
+    //                print(err)
+    //            case .success(let data):
+    //                self.data = [data]
+    //            }
+    //        }
+    //    }
     
     private func insertData() {
         
@@ -114,25 +119,65 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print(textField.tag)
-        // tag == 0 is textFieldPoint
-        if textField.tag == 0 {
+        
+        
+        // IF textfield on enter is last one and has value then add one, otherwise update its text only
+
+        
+        if textField.tag == list.count && textField.text != "" {
+            
+            
             list.append(TextFieldPoint(number: list.count, content: textField.text!))
             
-            let map_list = list.enumerated().map {
-                return "\($0.0 + 1)- \($0.1.content) \n"
-            }
-            // create new input OR clear input and add first one as text
-            textarea.text = map_list.joined(separator: "\n")
+            let current_number = list.count
+            
+            // create stack view
+            let stackView = UIStackView()
+            stackView.axis = .horizontal
+            stackView.alignment = .fill // .Leading .FirstBaseline .Center .Trailing .LastBaseline
+            stackView.distribution = .fill // .FillEqually .FillProportionally .EqualSpacing .EqualCentering
+            
+            
+            // create number
+            let number_frame = CGRect(x: 0, y: 0, width: 100, height: 30)
+            let number_label = UILabel(frame: number_frame)
+            number_label.text = "\(String(current_number + 1))."
+            number_label.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
+            
+            // for horizontal stack view, you might want to add width constraint to label or whatever vie
+            
+            
+            
+            // create input
+            
+            let textField = UITextField()
+            textField.tag = current_number
+            textField.font = UIFont.systemFont(ofSize: 14)
+            textField.borderStyle = UITextField.BorderStyle.roundedRect
+            textField.delegate = self
+            textField.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
+            
+            
+            // add number and input to stack with width
+            
+            stackView.addArrangedSubview(number_label)
+            stackView.addArrangedSubview(textField)
+            
+            // add stack view to Stack point
+            
+            stackPoint.addArrangedSubview(stackView)
+
         } else {
-            // use the tag to refer to the index in form_input
-            // TODO: not scalable, find better solution
-            self.form_input[textField.tag - 1].value = textField.text!
-            print(self.form_input)
+            self.list = self.list.enumerated().map {
+                (index, element) in
+                if(element.number == textField.tag) {
+                    var el = element
+                    el.content = textField.text!
+                    return el
+                }
+                return element
+            }
         }
-        
-        
-        
     }
 }
 
