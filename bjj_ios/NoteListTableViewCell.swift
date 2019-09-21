@@ -13,13 +13,9 @@ class NoteListTableViewCell: UITableViewCell {
     //MARK: Interface Builder
     
     @IBOutlet weak var noteTeachLabel: UILabel!
-    
     @IBOutlet weak var noteDateLabel: UILabel!
-    
-    @IBOutlet weak var noteTitleLabel: UILabel!
-    
-    @IBOutlet weak var noteCategoryLabel: UILabel!
-  
+    @IBOutlet weak var noteTechniqueLabel: UILabel!
+    @IBOutlet weak var noteTypeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

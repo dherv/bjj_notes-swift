@@ -53,8 +53,8 @@ class NoteListTableViewController: UITableViewController {
         cell.noteTeachLabel.text
             = current_note.teacher_name
         cell.noteDateLabel.text = current_note.class_date
-//        cell.noteTitleLabel.text = current_note.title
-        cell.noteCategoryLabel.text = String(current_note.position_id)
+        cell.noteTypeLabel.text = current_note.type
+        cell.noteTechniqueLabel.text = String(current_note.technique)
         return cell
     }
     
