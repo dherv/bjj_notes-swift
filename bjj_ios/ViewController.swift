@@ -26,29 +26,6 @@ struct TextFieldPoint: Codable {
     }
 }
 
-struct PostData: Codable {
-    
-    var title: String
-    var teacher: String
-    var category: String
-    var sub_category: String
-    var comment: String
-    var items: [TextFieldPoint]
-    
-    init(   title: String,
-            teacher: String,
-            category: String,
-            sub_category: String,
-            comment: String,
-            items: [TextFieldPoint]) {
-        self.title = title
-        self.teacher = teacher
-        self.category = category
-        self.sub_category = sub_category
-        self.comment = comment
-        self.items = items
-    }
-}
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -86,16 +63,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.insertData()
     }
     
-    private func getData() {
-        Api.shared.get(path: "/notes") {(res) in
-            switch res {
-            case.failure(let err):
-                print(err)
-            case .success(let data):
-                self.data = [data]
-            }
-        }
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
+    //    private func getData() {
+//        Api.shared.get(path: "/notes") {(res) in
+//            switch res {
+//            case.failure(let err):
+//                print(err)
+//            case .success(let data):
+//                self.data = [data]
+//            }
+//        }
+//    }
     
     private func insertData() {
         

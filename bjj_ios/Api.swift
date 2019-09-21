@@ -9,8 +9,10 @@
 import Foundation
 
 
+
+
 class Api {
-    static let shared = Api(baseUrl: String("http://localhost:3000"))
+    static let shared = Api(baseUrl: String("http://localhost:5000"))
     
     var baseUrl: String
     
@@ -18,9 +20,10 @@ class Api {
         self.baseUrl = baseUrl
     }
     
-    func get(path: String, completion: @escaping (Result<Data, Error>) -> ()) {
+    func get(path: String, completion: @escaping (Result<[GetData], Error>) -> ()) {
         guard let endpoint = URL(string: (baseUrl + path) ) else {return}
         
+        print("enpoint", endpoint)
         let task = URLSession.shared.dataTask(with: endpoint) { data, response, error in
             if let error = error {
                 print("error: \(error)")
@@ -30,7 +33,8 @@ class Api {
             guard let data = data else { return }
             
             do {
-                let data = try JSONDecoder().decode(Data.self, from : data)
+                // top level array need [GetData] instead of GetData
+                let data = try JSONDecoder().decode([GetData].self, from : data)
                 completion(.success(data))
             } catch {
                 completion(.failure(error))
