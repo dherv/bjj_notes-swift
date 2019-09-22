@@ -61,8 +61,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textFieldSub.delegate = self
         textFieldComment.delegate = self
         textFieldPoint.delegate = self
+        var contentRect = CGRect.zero
         
+      
     }
+    
+    
     
     @IBAction func submit(_ sender: Any) {
         self.insertData()
