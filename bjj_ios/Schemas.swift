@@ -10,8 +10,10 @@ import Foundation
 
 struct NoteItem: Codable {
     var content: String
-    init(content:String) {
+    var order_number: Int
+    init(content:String, order_number: Int) {
         self.content = content
+        self.order_number = order_number
     }
 }
 

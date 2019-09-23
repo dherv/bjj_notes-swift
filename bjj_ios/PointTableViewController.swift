@@ -20,7 +20,7 @@ struct TextFieldPoint: Codable {
 
 class PointTableViewController: UITableViewController, UITextFieldDelegate  {
     
-    var list = [TextFieldPoint]()
+    var list = [NoteItem]()
     var note_items = [NoteItem]()
     
     var data: Form = Form(teacher_id: 1, type: "", technique: "", position_id: 1, comment: "", class_date: "")
@@ -38,7 +38,7 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        list.append(TextFieldPoint(number: 1, content: ""))
+        list.append(NoteItem(content: "", order_number: 1))
     }
     
     // MARK: - private functions
@@ -55,7 +55,7 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
         // Update current
         self.list = self.list.enumerated().map {
             (index, element) in
-            if(element.number == textField.tag) {
+            if(element.order_number == textField.tag) {
                 var el = element
                 el.content = textField.text!
                 return el
@@ -66,12 +66,12 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
         // Add one empty field
         if textField.tag == list.count && textField.text != "" {
           
-            list.append(TextFieldPoint(number: list.count + 1, content: ""))
+            list.append(NoteItem(content: "", order_number: list.count + 1))
        
         } else {
             self.list = self.list.enumerated().map {
                 (index, element) in
-                if(element.number == textField.tag) {
+                if(element.order_number == textField.tag) {
                     var el = element
                     el.content = textField.text!
                     return el
@@ -102,7 +102,7 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
         
         cell.pointTableCell.delegate = self
        
-        cell.pointTableNumber.text = String(list[indexPath.row].number)
+        cell.pointTableNumber.text = String(list[indexPath.row].order_number)
         cell.pointTableCell.text = list[indexPath.row].content
         cell.pointTableCell.tag = indexPath.row + 1
        
@@ -120,11 +120,8 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
     
     private func insertData() {
         
-        // extract data from DATa
-        let note_items = self.list.enumerated().map {
-            (index, element) -> NoteItem in
-            return NoteItem(content: element.content)
-        }
+        // filter empty content
+        let note_items = self.list.filter {return !$0.content.isEmpty}
         // map list to note_items
         
         let post_data = PostData(technique: data.technique, teacher_id: data.teacher_id, position_id: data.position_id, comment: data.comment, note_items: note_items, type: data.type, class_date: data.class_date)
