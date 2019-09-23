@@ -21,10 +21,16 @@ struct TextFieldPoint: Codable {
 class PointTableViewController: UITableViewController, UITextFieldDelegate  {
     
     var list = [TextFieldPoint]()
+    var note_items = [NoteItem]()
+    
+    var data: Form = Form(teacher_id: 1, type: "", technique: "", position_id: 1, comment: "", class_date: "")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("DATA", data)
+        
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -104,6 +110,35 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
         return cell
     }
     
+    @IBAction func insert(_ sender: Any) {
+        self.insertData()
+    }
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+
+    }
+    
+    private func insertData() {
+        
+        // extract data from DATa
+        let note_items = self.list.enumerated().map {
+            (index, element) -> NoteItem in
+            return NoteItem(content: element.content)
+        }
+        // map list to note_items
+        
+        let post_data = PostData(technique: data.technique, teacher_id: data.teacher_id, position_id: data.position_id, comment: data.comment, note_items: note_items, type: data.type, class_date: data.class_date)
+        
+        print("POST", post_data)
+        Api.shared.post(path: "/notes", post_data: post_data) {(res) in
+            switch res {
+            case.failure(let err):
+                print(err)
+            case .success(let data):
+                print(data)
+            }
+        }
+    }
     
     /*
      // Override to support conditional editing of the table view.
