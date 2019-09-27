@@ -15,6 +15,8 @@ class NoteListTableViewController: UITableViewController {
     
     //MARK: variables
     var notes = [GetData]()
+    var current_note = GetData(id: 1, technique: "", teacher_name: "", position_id: 1, type: "Attack", comment: "", class_date: "", note_items: [])
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,7 @@ class NoteListTableViewController: UITableViewController {
         return notes.count
     }
     
+ 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "NoteListCell"
@@ -120,6 +123,30 @@ class NoteListTableViewController: UITableViewController {
                 }
             }
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.current_note = self.notes[indexPath.row]
+    
+        performSegue(withIdentifier: "showDetails", sender: self)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       
+       //Adding the indexPath variable for the selected table Row within the segue
+        let indexPath = self.tableView!.indexPathForSelectedRow! as NSIndexPath
+        
+        if segue.identifier == "showDetails" {
+             print(segue.destination)
+            let navVc = segue.destination as? UINavigationController
+            let detailController = navVc?.viewControllers.first as! DetailViewController
+      
+            
+            detailController.data = self.notes[indexPath.row]
+            
+        }
+
     }
     
 }

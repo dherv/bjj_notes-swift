@@ -38,7 +38,7 @@ struct Form {
 }
 
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class AddItemController: UIViewController, UITextFieldDelegate {
     
     var form_input = [FormInput]()
     var data = [Data]()
