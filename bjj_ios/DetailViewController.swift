@@ -28,12 +28,16 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var detailTextView: UITextView!
     
+    @IBOutlet weak var detailInfoView: UIView!
+    @IBOutlet weak var stackContainer: UIStackView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         print("DATAAAAAAAA", data)
-        
-
+       
+        detailTextView.textContainerInset = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
+        detailTextView.layer.cornerRadius = 4.0
+        detailInfoView.layer.cornerRadius = 4.0
         setupText()
         // Do any additional setup after loading the view.
     }
@@ -47,7 +51,9 @@ class DetailViewController: UIViewController {
     }
     
     func setupText() {
-        
+        detailTextView.text = data.note_items.sorted(by: {$0.order_number < $1.order_number}).enumerated().map{(index, element) in
+            return "\(element.order_number). \(element.content)"
+        }.joined(separator: "\n")
     }
 
     @IBAction func cancel(_ sender: UIBarButtonItem) {
