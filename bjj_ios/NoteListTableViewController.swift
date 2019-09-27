@@ -128,13 +128,14 @@ class NoteListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.current_note = self.notes[indexPath.row]
     
-//        performSegue(withIdentifier: "showDetails", sender: self)
+        performSegue(withIdentifier: "showDetails", sender: self)
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        
-       
+       //Adding the indexPath variable for the selected table Row within the segue
+        let indexPath = self.tableView!.indexPathForSelectedRow! as NSIndexPath
         
         if segue.identifier == "showDetails" {
              print(segue.destination)
@@ -142,7 +143,7 @@ class NoteListTableViewController: UITableViewController {
             let detailController = navVc?.viewControllers.first as! DetailViewController
       
             
-            detailController.data = self.current_note
+            detailController.data = self.notes[indexPath.row]
             
         }
 
