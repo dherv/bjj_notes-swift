@@ -8,38 +8,43 @@
 
 import Foundation
 
+struct NoteItem: Codable {
+    var content: String
+    var order_number: Int
+    init(content:String, order_number: Int) {
+        self.content = content
+        self.order_number = order_number
+    }
+}
 
 struct PostData: Codable {
     
-    var title: String
-    var teacher: String
-    var category: String
-    var sub_category: String
-    var comment: String
-    var items: [TextFieldPoint]
+    var technique: String
+    var teacher_id: Int
+    var position_id: Int
     
-    init(   title: String,
-            teacher: String,
-            category: String,
-            sub_category: String,
+    var comment: String
+    var note_items: [NoteItem]
+    var type: String
+    var class_date: String
+    
+    init(   technique: String,
+            teacher_id: Int,
+            position_id: Int,
+            
             comment: String,
-            items: [TextFieldPoint]) {
-        self.title = title
-        self.teacher = teacher
-        self.category = category
-        self.sub_category = sub_category
+            note_items: [NoteItem], type: String, class_date: String) {
+        self.technique = technique
+        self.teacher_id = teacher_id
+        self.position_id = position_id
+        
         self.comment = comment
-        self.items = items
+        self.note_items = note_items
+        self.type = type
+        self.class_date = class_date
     }
 }
 
-struct NoteItem: Decodable {
-    var name: String
-    init(name: String) {
-        self.name = name
-    }
-    
-}
 
 struct GetData: Decodable {
     var id: Int

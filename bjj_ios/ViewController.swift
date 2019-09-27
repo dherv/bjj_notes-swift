@@ -17,122 +17,93 @@ struct FormInput: Codable {
     }
 }
 
-struct TextFieldPoint: Codable {
-    var number: Int
-    var content: String
-    init(number: Int, content: String) {
-        self.content = content
-        self.number = number
+struct Form {
+    var   teacher_id: Int
+    var type: String
+    var technique: String
+    var position_id: Int
+    var comment : String
+    var class_date: String
+    init(teacher_id: Int, type: String,
+         technique: String,
+         position_id: Int,
+         comment : String, class_date: String ) {
+        self.teacher_id = teacher_id
+        self.type = type
+        self.technique = technique
+        self.position_id = position_id
+        self.comment  = comment
+        self.class_date = class_date
     }
 }
 
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    var list = [TextFieldPoint]()
     var form_input = [FormInput]()
     var data = [Data]()
     
+    var teacher_id = 1
+    var type: Bool = true
+    var technique = ""
+    var position_id = 1
+    var comment  = ""
+    var class_date = ""
     
     
-    @IBOutlet weak var textFieldTeacher: UITextField!
-    
-    @IBOutlet weak var textFieldCategory: UITextField!
-    @IBOutlet weak var textFieldSub: UITextField!
-    @IBOutlet weak var textFieldTitle: UITextField!
-    
+    @IBOutlet weak var textPositionId: UITextField!
     @IBOutlet weak var textFieldComment: UITextField!
-    @IBOutlet weak var textFieldPoint: UITextField!
+    @IBOutlet weak var textClassDate: UITextField!
+    @IBOutlet weak var textTechnique: UITextField!
+    @IBOutlet weak var textTeacherId: UITextField!
+    @IBOutlet weak var switchType: UISwitch!
     
-    @IBOutlet weak var textarea: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.generateFormInput()
-        // Do any additional setup after loading the view.
-        textFieldTeacher.delegate = self
-        textFieldCategory.delegate = self
-        textFieldTitle.delegate = self
-        textFieldSub.delegate = self
-        textFieldComment.delegate = self
-        textFieldPoint.delegate = self
-        
+        textTeacherId.delegate = self
+        textPositionId.delegate = self
+        textTechnique.delegate = self
+        textClassDate.delegate = self
     }
-    
-    @IBAction func submit(_ sender: Any) {
-        self.insertData()
-    }
-    
+
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-    //    private func getData() {
-//        Api.shared.get(path: "/notes") {(res) in
-//            switch res {
-//            case.failure(let err):
-//                print(err)
-//            case .success(let data):
-//                self.data = [data]
-//            }
-//        }
-//    }
-    
-    private func insertData() {
-        
-        let title = form_input.first(where: { $0.name  == "title" })!.value
-        let teacher = form_input.first(where: { $0.name  == "teacher" })!.value
-        let category = form_input.first(where: { $0.name  == "category" })!.value
-        let sub_category = form_input.first(where: { $0.name  == "sub_category" })!.value
-        let comment = form_input.first(where: { $0.name  == "comment" })!.value
-        
-        let post_data = PostData(title: title, teacher: teacher, category: category, sub_category: sub_category, comment: comment, items: list)
-        
-        Api.shared.post(path: "/notes", post_data: post_data) {(res) in
-            switch res {
-            case.failure(let err):
-                print(err)
-            case .success(let data):
-                print(data)
-            }
-            
-        }
-    }
-    
-    private func generateFormInput() {
-        self.form_input = [
-            FormInput(name: "teacher", value: ""),
-            FormInput(name: "category", value: ""),
-            FormInput(name: "title", value:""),
-            FormInput(name: "sub_category", value: ""),
-            FormInput(name: "comment", value: "")
-        ]
-    }
+
+    // MARK: - text delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
         textField.resignFirstResponder()
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print(textField.tag)
-        // tag == 0 is textFieldPoint
-        if textField.tag == 0 {
-            list.append(TextFieldPoint(number: list.count, content: textField.text!))
-            
-            let map_list = list.enumerated().map {
-                return "\($0.0 + 1)- \($0.1.content) \n"
-            }
-            // create new input OR clear input and add first one as text
-            textarea.text = map_list.joined(separator: "\n")
-        } else {
-            // use the tag to refer to the index in form_input
-            // TODO: not scalable, find better solution
-            self.form_input[textField.tag - 1].value = textField.text!
-            print(self.form_input)
-        }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//
+//        print(textField)
+////        self.teacher_id = Int(textTeacherId.text!)!
+////        self.type = switchType.isOn
+////        self.technique = textTechnique.text!
+////        self.position_id = Int(textPositionId.text? "")
+////        self.comment = textFieldComment.text!
+//        self.view.endEditing(true)
+//
+//    }
+    
+    // MARK: - segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         
+        // Need to pass through navigation controller to pass data
+        let navVC = segue.destination as? UINavigationController
         
+        let pointController = navVC?.viewControllers.first as! PointTableViewController
+    
+        
+        let data = Form(teacher_id: Int(textTeacherId.text ?? "") ?? 1, type: switchType.isOn ? "Attack" : "Defense", technique: textTechnique.text ?? "", position_id: Int(textPositionId.text ?? "") ?? 1, comment: textFieldComment.text ?? "", class_date: textClassDate.text ?? "")
+        print("Form", data)
+        pointController.data = data
     }
 }
 

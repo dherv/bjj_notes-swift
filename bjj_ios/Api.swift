@@ -12,7 +12,7 @@ import Foundation
 
 
 class Api {
-    static let shared = Api(baseUrl: String("http://localhost:5000"))
+    static let shared = Api(baseUrl: String("http://192.168.3.9:5000"))
     
     var baseUrl: String
     
