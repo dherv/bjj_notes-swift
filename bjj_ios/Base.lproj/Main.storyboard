@@ -411,7 +411,11 @@
                         <viewLayoutGuide key="safeArea" id="YBa-vf-sOG"/>
                     </view>
                     <navigationItem key="navigationItem" id="69d-HV-shZ">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="4gq-E2-VkM"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="4gq-E2-VkM">
+                            <connections>
+                                <action selector="cancel:" destination="f9v-nn-o0w" id="fgD-aN-kQW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="onn-h9-1rK" userLabel="First Responder" sceneMemberID="firstResponder"/>
