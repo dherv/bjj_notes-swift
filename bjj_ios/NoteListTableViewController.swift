@@ -53,8 +53,7 @@ class NoteListTableViewController: UITableViewController {
         
         let current_note = notes[indexPath.row]
         print("note", current_note)
-        cell.noteTeachLabel.text
-            = current_note.teacher_name
+        cell.notePositionLabel.text = String(current_note.position_id)
         cell.noteDateLabel.text = current_note.class_date
         cell.noteTypeLabel.text = current_note.type
         cell.noteTechniqueLabel.text = String(current_note.technique)

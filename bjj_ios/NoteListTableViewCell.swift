@@ -12,7 +12,8 @@ class NoteListTableViewCell: UITableViewCell {
 
     //MARK: Interface Builder
     
-    @IBOutlet weak var noteTeachLabel: UILabel!
+  
+    @IBOutlet weak var notePositionLabel: UILabel!
     @IBOutlet weak var noteDateLabel: UILabel!
     @IBOutlet weak var noteTechniqueLabel: UILabel!
     @IBOutlet weak var noteTypeLabel: UILabel!
