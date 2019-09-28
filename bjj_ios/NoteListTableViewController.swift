@@ -15,7 +15,7 @@ class NoteListTableViewController: UITableViewController {
     
     //MARK: variables
     var notes = [GetData]()
-    var current_note = GetData(id: 1, technique: "", teacher_name: "", position_id: 1, type: "Attack", comment: "", class_date: "", note_items: [])
+    var current_note: GetData? = nil
 
     
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ class NoteListTableViewController: UITableViewController {
         
         let current_note = notes[indexPath.row]
         print("note", current_note)
-        cell.notePositionLabel.text = String(current_note.position_id)
+        cell.notePositionLabel.text = current_note.position_name
         cell.noteDateLabel.text = current_note.class_date
         cell.noteTypeLabel.text = current_note.type
         cell.noteTechniqueLabel.text = String(current_note.technique)
@@ -134,17 +134,18 @@ class NoteListTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        
        //Adding the indexPath variable for the selected table Row within the segue
-        let indexPath = self.tableView!.indexPathForSelectedRow! as NSIndexPath
+        
         
         if segue.identifier == "showDetails" {
-             print(segue.destination)
+             
+let indexPath = self.tableView!.indexPathForSelectedRow! as NSIndexPath
             let navVc = segue.destination as? UINavigationController
             let detailController = navVc?.viewControllers.first as! DetailViewController
       
             
             detailController.data = self.notes[indexPath.row]
             
-        }
+        } 
 
     }
     

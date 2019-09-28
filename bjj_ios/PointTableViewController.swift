@@ -25,10 +25,13 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
     
     var data: Form = Form(teacher_id: 1, type: "", technique: "", position_id: 1, comment: "", class_date: "")
     
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("DATA", data)
+        saveButton.isEnabled = false
         
         
         
@@ -45,11 +48,21 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
-        textField.resignFirstResponder()
-        return true
+        
+            textField.resignFirstResponder()
+               return true
+     
+    }
+    
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+          saveButton.isEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+            // Disable the Save button while editing.
+        
         
         
         // Update current
@@ -64,6 +77,7 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
         }
         
         // Add one empty field
+        // if current field tag is equal to count (tag starts at 1)
         if textField.tag == list.count && textField.text != "" {
           
             list.append(NoteItem(content: "", order_number: list.count + 1))
@@ -79,6 +93,7 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
                 return element
             }
         }
+        saveButton.isEnabled = true
          self.tableView.reloadData()
     }
     
@@ -99,7 +114,7 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pointTableCell", for: indexPath) as! PointTableViewCell
         
         // Configure the cell...
-        
+        // Add text field delegate to table cell
         cell.pointTableCell.delegate = self
        
         cell.pointTableNumber.text = String(list[indexPath.row].order_number)
@@ -118,11 +133,30 @@ class PointTableViewController: UITableViewController, UITextFieldDelegate  {
 
     }
     
+    
+    @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
+        
+      
+         
+        
+        
+    }
+    
+    // call to insert data before doing the exit segue
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "exitPointSegue" {
+            self.insertData()
+            return true
+        }
+        return false
+    }
     private func insertData() {
+  
         
         // filter empty content
         let note_items = self.list.filter {return !$0.content.isEmpty}
         // map list to note_items
+        
         
         let post_data = PostData(technique: data.technique, teacher_id: data.teacher_id, position_id: data.position_id, comment: data.comment, note_items: note_items, type: data.type, class_date: data.class_date)
         

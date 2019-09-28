@@ -231,10 +231,13 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="3Nn-FO-QEI">
                             <connections>
-                                <action selector="insert:" destination="yc2-BP-P8Z" id="jhY-C4-QDG"/>
+                                <segue destination="47n-eY-cT0" kind="showDetail" identifier="exitPointSegue" id="lLc-Dr-GE2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="saveButton" destination="3Nn-FO-QEI" id="UcS-vg-9dy"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qd2-VX-ec4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -354,6 +357,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SOz-Uy-Mef" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="0Ts-N0-otR"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hoH-zx-Wdl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

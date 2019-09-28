@@ -49,8 +49,10 @@ struct PostData: Codable {
 struct GetData: Decodable {
     var id: Int
     var technique: String
+    var teacher_id: Int?
     var teacher_name: String
-    var position_id: Int
+    var position_id: Int?
+    var position_name: String
     var type: String
     var comment: String?
     var class_date: String
@@ -59,8 +61,10 @@ struct GetData: Decodable {
     init(
         id: Int,
         technique: String,
+        teacher_id: Int,
         teacher_name: String,
         position_id: Int,
+        position_name: String,
         type: String,
         comment: String,
         class_date: String,
@@ -68,8 +72,10 @@ struct GetData: Decodable {
         ) {
         self.id = id
         self.technique = technique
+        self.teacher_id = teacher_id
         self.teacher_name = teacher_name
         self.position_id = position_id
+        self.position_name = position_name.capitalized
         self.type = type
         self.comment = comment
         self.class_date = class_date
