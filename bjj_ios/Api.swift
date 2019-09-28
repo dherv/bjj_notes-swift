@@ -12,7 +12,10 @@ import Foundation
 
 
 class Api {
-    static let shared = Api(baseUrl: String("http://192.168.3.9:5000"))
+    
+    
+    
+    static let shared = Api(baseUrl: Api.getURL())
     
     var baseUrl: String
     
@@ -20,6 +23,19 @@ class Api {
         self.baseUrl = baseUrl
     }
     
+    static let environment: Environment = .production
+    
+    static func getURL() -> String {
+        switch environment {
+        case .development:
+            return "http://localhost:5000"
+        case .production:
+            return "http://3.112.151.152:5000"
+        default:
+            return "http://localhost:5000"
+        }
+        
+    }
     func get(path: String, completion: @escaping (Result<[GetData], Error>) -> ()) {
         guard let endpoint = URL(string: (baseUrl + path) ) else {return}
         
