@@ -64,7 +64,7 @@ class AddItemController: UIViewController, UITextFieldDelegate {
         textTeacherId.delegate = self
         textPositionId.delegate = self
         textTechnique.delegate = self
-        textClassDate.delegate = self
+//        textClassDate.delegate = self
     }
 
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -101,7 +101,7 @@ class AddItemController: UIViewController, UITextFieldDelegate {
         let pointController = navVC?.viewControllers.first as! PointTableViewController
     
         
-        let data = Form(teacher_id: Int(textTeacherId.text ?? "") ?? 1, type: switchType.isOn ? "Attack" : "Defense", technique: textTechnique.text ?? "", position_id: Int(textPositionId.text ?? "") ?? 1, comment: textFieldComment.text ?? "", class_date: textClassDate.text ?? "")
+        let data = Form(teacher_id: Int(textTeacherId.text ?? "") ?? 1, type: switchType.isOn ? "Defense" : "Attack", technique: textTechnique.text ?? "", position_id: Int(textPositionId.text ?? "") ?? 1, comment: textFieldComment.text ?? "", class_date: textClassDate.text ?? "")
         print("Form", data)
         pointController.data = data
     }
