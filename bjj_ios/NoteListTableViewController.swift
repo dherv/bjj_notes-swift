@@ -16,7 +16,7 @@ class NoteListTableViewController: UITableViewController {
     //MARK: variables
     var notes = [GetData]()
     var current_note: GetData? = nil
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,10 @@ class NoteListTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadNotes()
     }
     
     // MARK: - Table view data source
@@ -43,7 +47,7 @@ class NoteListTableViewController: UITableViewController {
         return notes.count
     }
     
- 
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "NoteListCell"
@@ -126,27 +130,27 @@ class NoteListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.current_note = self.notes[indexPath.row]
-    
+        
         performSegue(withIdentifier: "showDetails", sender: self)
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       
-       //Adding the indexPath variable for the selected table Row within the segue
+        
+        //Adding the indexPath variable for the selected table Row within the segue
         
         
         if segue.identifier == "showDetails" {
-             
-let indexPath = self.tableView!.indexPathForSelectedRow! as NSIndexPath
+            
+            let indexPath = self.tableView!.indexPathForSelectedRow! as NSIndexPath
             let navVc = segue.destination as? UINavigationController
             let detailController = navVc?.viewControllers.first as! DetailViewController
-      
+            
             
             detailController.data = self.notes[indexPath.row]
             
         } 
-
+        
     }
     
 }

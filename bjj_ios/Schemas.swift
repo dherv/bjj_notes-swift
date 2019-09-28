@@ -75,7 +75,7 @@ struct GetData: Decodable {
         self.teacher_id = teacher_id
         self.teacher_name = teacher_name
         self.position_id = position_id
-        self.position_name = position_name.capitalized
+        self.position_name = position_name
         self.type = type
         self.comment = comment
         self.class_date = class_date
